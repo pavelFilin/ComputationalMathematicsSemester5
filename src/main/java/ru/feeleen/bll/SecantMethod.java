@@ -1,25 +1,32 @@
 package ru.feeleen.bll;
 
-public class BisectionMethod {
+import com.sun.istack.internal.NotNull;
+
+public class SecantMethod implements Solver{
+
+    double a = -10;
+    double b = +10;
 //    double a = -Double.MAX_VALUE;
 //    double b = Double.MAX_VALUE;
-    double a = -10;
-    double b = 10;
-    double c = 0;
-    double fa = 0;
-    double fb = 0;
-    double fc = 0;
+
+    private Formula formula;
+    public SecantMethod(@NotNull Formula formula) {
+        this.formula = formula;
+    }
 
     public double getX(double e) {
+       double fa = 0;
+       double fb = 0;
+       double fc = 0;
         int count = 0;
 
         do {
+                double c = -(formula.solve(a)*(b-a))/(formula.solve(b)-formula.solve(a)) + a;
             count++;
             System.out.println("[" + a + ";" + b + "]");
-            c = (a +b) / 2;
-            fa = formula(a);
-            fb = formula(b);
-            fc = formula(c);
+            fa = formula.solve(a);
+            fb = formula.solve(b);
+            fc = formula.solve(c);
 
             if (fa * fc < 0) {
                 b = c;
@@ -33,9 +40,5 @@ public class BisectionMethod {
 
         System.out.println("count of iterate " + count);
         return (a+b)/2;
-    }
-
-    public double formula(double x) {
-        return (1 / (1 + (x * x))) - x;
     }
 }
