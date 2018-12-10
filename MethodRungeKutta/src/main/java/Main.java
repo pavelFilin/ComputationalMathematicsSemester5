@@ -1,8 +1,6 @@
 // Java program to implement Runge Kutta method
 
 
-import java.util.List;
-
 public class Main {
     public static void main(String args[]) {
         Differential d2 = new Differential();
